@@ -40,25 +40,25 @@ from seqsleepnet_sleep_withconf import SeqSleepNet_Sleep_Conf
 
 from seqsleepnet_sleep_config import Config
 sys.path.insert(1,basepath+'/Documents/code/feature_mapping/')
-sys.path.insert(0, "/users/sista/ehereman/Documents/code/general")
+sys.path.insert(0, basepath+"/Documents/code/general")
 from save_functions import *
 from mathhelp import softmax, cross_entropy
 
 from distribution_comparison import distribution_differences
 
-sys.path.insert(0, "/users/sista/ehereman/Documents/code/adapted_tb_classes")
+sys.path.insert(0, basepath+"/Documents/code/adapted_tb_classes")
 from subgenfromfile_epochsave import SubGenFromFile
 
-filename="/users/sista/ehereman/Documents/code/feature_mapping/sleepuzl_subsets_46pat.mat" #Fz or Fp2, they are in channel 5
-filename2="/users/sista/ehereman/Documents/code/feature_mapping/sleepuzl_subsets_cross45pat.mat" #Fz or Fp2, they are in channel 5
+filename=basepath+"/Documents/code/feature_mapping/sleepuzl_subsets_46pat.mat" #Fz or Fp2, they are in channel 5
+filename2=basepath+"/Documents/code/feature_mapping/sleepuzl_subsets_cross45pat.mat" #Fz or Fp2, they are in channel 5
 
 files_folds=loadmat(filename)
 files_folds2=loadmat(filename2)
 
 normalize=True
 
-source='/esat/stadiustempdatasets/ehereman/SleepData/processed_tb/allfiles-FzFp2sd-moreeegchan2/'
-source2='/esat/stadiustempdatasets/ehereman/SleepData/processed_tb/allfiles-FzFp2sd-moreeegchan2/' #in paper it is first69files but i threw this away
+source=basepath+'/SleepData/processed_tb/allfiles-FzFp2sd-moreeegchan2/'
+source2=basepath+'/SleepData/processed_tb/allfiles-FzFp2sd-moreeegchan2/' #in paper it is first69files but i threw this away
 
 number_patients=2
 #VERSION WITH PATIENT GROUPS
@@ -94,11 +94,11 @@ for fold in range(23):
         
         #E: nb of batches to run through whole dataset = nb of sequences (20 consecutive epochs) divided by batch size
         print("Train/Eval/Test batches per epoch: ./{:d}".format( test_batches_per_epoch))
-        config.out_dir1= '/esat/asterie1/scratch/ehereman/results_SeqSleepNet_tb/totalmass2/seqsleepnet_sleep_nfilter32_seq10_dropout0.75_nhidden64_att64_1chan_subjnorm/total'.format( fold+1)
+        config.out_dir1= basepath+'/results_SeqSleepNet_tb/totalmass2/seqsleepnet_sleep_nfilter32_seq10_dropout0.75_nhidden64_att64_1chan_subjnorm/total'.format( fold+1)
 
-        #dir2= '/esat/asterie1/scratch/ehereman/results_confidence/scratch/sleepuzl/46pat/seqslnet_cartotraining_5chans2_subjnorm_sdtrain42pat'
-        #dir2='/esat/asterie1/scratch/ehereman/results_confidence/scratch/sleepuzl/46pat/seqslnet_learning_excambigAl001_fzfp2accchans2_subjnorm_sdtrain46pat/total{:d}'.format(fold)
-        dir2='/esat/asterie1/scratch/ehereman/results_confidence/scratch/sleepuzl/46pat/seqslnet_learning_excambigAl001_5chans2_subjnorm_sdtrain46pat/total{:d}'.format(fold)        # dir2=basepath+'/results_confidence/adv_DA/sleepuzl/15patcross/version4/seqslnet_advDA_AL1x10perc_entr_epi4_sleepuzl5chans_subjnorm_sdtrain1pat/'
+        #dir2= basepath+'/results_confidence/scratch/sleepuzl/46pat/seqslnet_cartotraining_5chans2_subjnorm_sdtrain42pat'
+        #dir2=basepath+'/results_confidence/scratch/sleepuzl/46pat/seqslnet_learning_excambigAl001_fzfp2accchans2_subjnorm_sdtrain46pat/total{:d}'.format(fold)
+        dir2=basepath+'/results_confidence/scratch/sleepuzl/46pat/seqslnet_learning_excambigAl001_5chans2_subjnorm_sdtrain46pat/total{:d}'.format(fold)        # dir2=basepath+'/results_confidence/adv_DA/sleepuzl/15patcross/version4/seqslnet_advDA_AL1x10perc_entr_epi4_sleepuzl5chans_subjnorm_sdtrain1pat/'
         config.out_dir2 = dir2# os.path.join(dir2,'total{:d}'.format(fold))#{:d}'.format(fold,pat_group))
 
         config.checkpoint_dir= './checkpoint/'
@@ -359,8 +359,8 @@ for fold in range(23):
 ##Training dynamics
 #V2 paper: used 46 patients osa (full EEG and fzfp2-wearable type data)
 config.out_dir2=basepath+'/results_confidence/scratch/sleepuzl/46pat/seqslnet_cartotraining_fzfp2accchans_subjnorm_sdtrain42pat/total/'
-config.out_dir2='/esat/asterie1/scratch/ehereman/results_confidence/scratch/sleepuzl/46pat/seqslnet_learning_excambigAl001_fzfp2accchans2_subjnorm_sdtrain46pat/total0'
-config.out_dir2='/esat/asterie1/scratch/ehereman/results_confidence/scratch/sleepuzl/46pat/seqslnet_learning_excambigAl001_5chans2_subjnorm_sdtrain46pat/total0'
+config.out_dir2=basepath+'/results_confidence/scratch/sleepuzl/46pat/seqslnet_learning_excambigAl001_fzfp2accchans2_subjnorm_sdtrain46pat/total0'
+config.out_dir2=basepath+'/results_confidence/scratch/sleepuzl/46pat/seqslnet_learning_excambigAl001_5chans2_subjnorm_sdtrain46pat/total0'
 perc_labels=0.01
 prob_train=np.load(config.out_dir2+ '/prob_train.npy')#[5:]
 # score_test=np.load(config.out_dir2+ '/score_test.npy')
