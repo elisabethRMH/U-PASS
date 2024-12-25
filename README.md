@@ -21,4 +21,4 @@ f. eval_AL_perpatient.py: evaluate active learning and make figures 3.b
 
 g. test_sqslnet_removetestdata.py: calculation of test uncertainty values after AL.
 
-h. TO DO
+h. figure_reject_global.py: reject uncertain test samples based on uncertainty values calculated in g.
